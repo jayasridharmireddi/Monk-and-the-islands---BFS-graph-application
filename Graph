@@ -1,0 +1,44 @@
+import java.util.*;
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t>0){
+            solve(t,sc);  // method
+            t--;
+        }
+    }
+        private static void solve(int t,Scanner sc){
+            int N=sc.nextInt(),M=sc.nextInt();
+            ArrayList<ArrayList<Integer>> adj= new ArrayList<>();
+           for(int i=0;i<=N;i++){
+              adj.add(new ArrayList<>());
+           }
+            for(int i=0;i<M;i++){
+              int u= sc.nextInt();
+              int v= sc.nextInt();
+              adj.get(u).add(v);
+              adj.get(v).add(u);
+            }
+            int vis[]= new int[N+1];
+             //ArrayList<Integer> ans= new ArrayList<Integer>();
+             vis[1]=1;
+             int dis[]=new int[N+1];
+             dis[1]=0;
+      //ans.add(1);
+      // implement bfs on the graph
+             Queue<Integer> q= new LinkedList<>();
+             q.add(1);
+            while(q.isEmpty()!=true){
+               int u= q.remove();
+               for(int v: adj.get(u)){
+                 if(vis[v]==1) continue;
+                  vis[v]=1;
+                   dis[v]=1+dis[u];
+                   q.add(v);
+                }
+            }
+            System.out.println(dis[N]);
+        }
+}
